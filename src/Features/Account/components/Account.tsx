@@ -24,6 +24,7 @@ import classes from "./Account.module.css"
 import {useAuth} from "../../Authentication/Components/AuthContext.tsx";
 import {EditUserDetailsModal} from "./EditUserDetailsModal.tsx";
 import {useDisclosure, useMediaQuery} from "@mantine/hooks";
+import {ChangeUserPasswordModal} from "./ChangeUserPassword.tsx";
 
 export function Account() {
     const theme = useMantineTheme()
@@ -42,7 +43,9 @@ export function Account() {
         },
     ];
 
-    const [opened, {open, close}] = useDisclosure(false);
+    const [EditUser, {open:OpenEditUser, close:CloseEditUser}] = useDisclosure(false);
+    const [ChangePassword, {open:OpenChangePassword, close:CloseChangePassword}] = useDisclosure(false);
+
     const isMobile = useMediaQuery(`(max-width: ${em(500)})`);
     return (
         <Stack align={"center"}>
@@ -55,7 +58,7 @@ export function Account() {
                                 <Text fz="md" tt={"capitalize"} fw={700} c={{base: "white", md: "white"}}>
                                     {user?.name}
                                 </Text>
-                                <Group wrap="nowrap" onClick={open} mt={3} gap={2}>
+                                <Group wrap="nowrap" onClick={OpenEditUser} mt={3} gap={2}>
                                     <Text fz="md" style={{cursor: "pointer"}}
                                           c={{base: theme.colors.gray[3], md: theme.colors.gray[3]}}>
                                         Edit your profile
@@ -64,13 +67,13 @@ export function Account() {
                                 </Group>
 
                                 <Drawer
-                                    opened={opened}
+                                    opened={EditUser}
                                     position={`${isMobile ? "bottom" : "right"}`}
                                     transitionProps={{
                                         duration: 500,
                                         transition: `${isMobile ? 'slide-up' : 'slide-left'}`
                                     }}
-                                    onClose={close}
+                                    onClose={CloseEditUser}
                                     styles={{
                                         content: {
                                             borderTopLeftRadius: `${isMobile ? "20px" : 0}`,
@@ -79,7 +82,25 @@ export function Account() {
                                     }}
                                     withCloseButton={false}
                                 >
-                                    <EditUserDetailsModal onClose={close} />
+                                    <EditUserDetailsModal onClose={CloseEditUser} />
+                                </Drawer>
+                                <Drawer
+                                    opened={ChangePassword}
+                                    position={`${isMobile ? "bottom" : "right"}`}
+                                    transitionProps={{
+                                        duration: 500,
+                                        transition: `${isMobile ? 'slide-up' : 'slide-left'}`
+                                    }}
+                                    onClose={CloseChangePassword}
+                                    styles={{
+                                        content: {
+                                            borderTopLeftRadius: `${isMobile ? "20px" : 0}`,
+                                            borderTopRightRadius: `${isMobile ? "20px" : 0}`,
+                                        }
+                                    }}
+                                    withCloseButton={false}
+                                >
+                                <ChangeUserPasswordModal onClose={CloseChangePassword} />
                                 </Drawer>
                             </div>
                         </Stack>
@@ -127,6 +148,7 @@ export function Account() {
                         rightSection={<Group><IconChevronRight/></Group>}
                     />
                     <NavLink
+                        onClick={OpenChangePassword}
                         label="Change password"
                         leftSection={<IconLock size="1rem" stroke={1.5}/>}
                         rightSection={<Group><IconChevronRight/></Group>}
