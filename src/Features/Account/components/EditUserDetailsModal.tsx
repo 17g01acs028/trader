@@ -2,7 +2,7 @@ import {
     Avatar,
     Box,
     Button,
-    Center,
+    Center, em,
     FileButton,
     Group,
     rem,
@@ -12,15 +12,15 @@ import {
     Tooltip, useMantineTheme
 } from "@mantine/core";
 import {z} from "zod"
-import {IconEdit, IconInfoCircle} from "@tabler/icons-react";
+import {IconEdit, IconGripHorizontal, IconInfoCircle, IconX} from "@tabler/icons-react";
 import {useAuth} from "../../Authentication/Components/AuthContext.tsx";
 import {useForm} from "@mantine/form";
 import {zodResolver} from "mantine-form-zod-resolver";
 import {useState} from "react";
+import {useMediaQuery} from "@mantine/hooks";
 
 interface EditUserDetailsModalProps {
     onClose?: () => void;
-    onSubmit?: () => void;
 
 }
 
@@ -54,7 +54,7 @@ export function EditUserDetailsModal(props: EditUserDetailsModalProps) {
         },
         validate: zodResolver(EditUserDatailsSchema)
     });
-
+    const isMobile = useMediaQuery(`(max-width: ${em(500)})`);
     function handleSubmit(data: any) {
         const formData = new FormData()
         formData.append('request_body', JSON.stringify(data));
@@ -69,6 +69,7 @@ export function EditUserDetailsModal(props: EditUserDetailsModalProps) {
     return (
         <form onSubmit={form.onSubmit(handleSubmit, handleInValidSubmit)}>
             <Stack>
+                <Group justify={isMobile ? "center" : "end"} align={"center"}>{isMobile ? (<IconGripHorizontal onClick={props?.onClose} color={theme.colors.gray[6]}/>) : (<IconX onClick={props?.onClose} color={theme.colors.gray[6]}/>)}</Group>
                 <Group justify={"center"}>
                     <FileButton onChange={handleFileChange} accept="image/png,image/jpeg">
                         {(props) => <Group gap={-30} align={"end"}>

@@ -2,7 +2,7 @@ import {
     ActionIcon,
     Avatar, Button,
     Card,
-    CopyButton,
+    CopyButton, Drawer, em,
     Group, Modal,
     NavLink, rem,
     Stack,
@@ -23,35 +23,35 @@ import {SocialIcon} from "./SocialIcons.tsx";
 import classes from "./Account.module.css"
 import {useAuth} from "../../Authentication/Components/AuthContext.tsx";
 import {EditUserDetailsModal} from "./EditUserDetailsModal.tsx";
-import {useDisclosure} from "@mantine/hooks";
+import {useDisclosure, useMediaQuery} from "@mantine/hooks";
 
 export function Account() {
     const theme = useMantineTheme()
     const navigate = useNavigate()
-    const{user,logout} = useAuth()
-    const data=   [
+    const {user, logout} = useAuth()
+    const data = [
         {
-            icon: <IconMessageChatbot size={20} />,
-            link:"https://google.com",
-            description:"Customer Care"
+            icon: <IconMessageChatbot size={20}/>,
+            link: "https://google.com",
+            description: "Customer Care"
         },
         {
-            icon: <IconBrandTelegram size={20} />,
-            link:"https://telegram.com",
+            icon: <IconBrandTelegram size={20}/>,
+            link: "https://telegram.com",
             description: "Telegram Group"
         },
     ];
 
     const [opened, {open, close}] = useDisclosure(false);
-
+    const isMobile = useMediaQuery(`(max-width: ${em(500)})`);
     return (
         <Stack align={"center"}>
-            <Stack p={10} className={classes.root} align={"stretch"} >
+            <Stack p={10} className={classes.root} align={"stretch"}>
                 <Card withBorder radius={"md"} bg={theme.colors.yellow[5]} style={{maxWidth: '500px'}}>
                     <Group>
                         <Avatar size={100}></Avatar>
                         <Stack>
-                            <div style={{color:"white"}}>
+                            <div style={{color: "white"}}>
                                 <Text fz="md" tt={"capitalize"} fw={700} c={{base: "white", md: "white"}}>
                                     {user?.name}
                                 </Text>
@@ -63,11 +63,24 @@ export function Account() {
                                     <IconEdit cursor={"pointer"} size={12}/>
                                 </Group>
 
-                                <Modal opened={opened} centered onClose={close} style={{
-                                    marginBottom: "0px"
-                                }}>
-                                    <EditUserDetailsModal/>
-                                </Modal>
+                                <Drawer
+                                    opened={opened}
+                                    position={`${isMobile ? "bottom" : "right"}`}
+                                    transitionProps={{
+                                        duration: 500,
+                                        transition: `${isMobile ? 'slide-up' : 'slide-left'}`
+                                    }}
+                                    onClose={close}
+                                    styles={{
+                                        content: {
+                                            borderTopLeftRadius: `${isMobile ? "20px" : 0}`,
+                                            borderTopRightRadius: `${isMobile ? "20px" : 0}`,
+                                        }
+                                    }}
+                                    withCloseButton={false}
+                                >
+                                    <EditUserDetailsModal onClose={close} />
+                                </Drawer>
                             </div>
                         </Stack>
                     </Group>
@@ -89,13 +102,13 @@ export function Account() {
                         rightSection={<Group gap={0}>
                             <label>{user?.$id}</label>
                             <CopyButton value={user?.$id} timeout={2000}>
-                                {({ copied, copy }) => (
+                                {({copied, copy}) => (
                                     <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
                                         <ActionIcon color={copied ? 'teal' : 'gray'} variant="subtle" onClick={copy}>
                                             {copied ? (
-                                                <IconCheck style={{ width: rem(16) }} />
+                                                <IconCheck style={{width: rem(16)}}/>
                                             ) : (
-                                                <IconCopy style={{ width: rem(16) }} />
+                                                <IconCopy style={{width: rem(16)}}/>
                                             )}
                                         </ActionIcon>
                                     </Tooltip>
@@ -120,12 +133,17 @@ export function Account() {
                     />
                 </Card>
                 <Card mt={50} style={{maxWidth: '500px'}}>
-                    <SocialIcon data={data} onClick={(link)=>navigate({to:link})}/>
+                    <SocialIcon data={data} onClick={(link) => navigate({to: link})}/>
                 </Card>
-                <Button variant={"outline"} color={"yellow"} radius={"md"}  style={{
-                    maxWidth:"500px"
+                <Button variant={"outline"} color={"yellow"} radius={"md"} style={{
+                    maxWidth: "500px"
                 }} onClick={logout}>Logout</Button>
-                <Text mb={30} style={{color:theme.colors.gray[5],width:"100%",textAlign:"center",textTransform:"lowercase"}} fz={"xm"}>Trade@2024 - V1.0</Text>
+                <Text mb={30} style={{
+                    color: theme.colors.gray[5],
+                    width: "100%",
+                    textAlign: "center",
+                    textTransform: "lowercase"
+                }} fz={"xm"}>Trade@2024 - V1.0</Text>
             </Stack>
         </Stack>
     )
