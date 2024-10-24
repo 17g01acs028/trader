@@ -40,6 +40,8 @@ export function Account() {
             description: "Telegram Group"
         },
     ];
+
+    const [opened, {open, close}] = useDisclosure(false);
     return (
         <Stack align={"center"}>
             <Stack p={10} className={classes.root} align={"stretch"} >
@@ -51,14 +53,17 @@ export function Account() {
                                 <Text fz="md" tt={"capitalize"} fw={700} c={{base: "white", md: "white"}}>
                                     {user?.name}
                                 </Text>
-                                <Group wrap="nowrap" mt={3} gap={2}>
-                                    <Text fz="md" c={{base: theme.colors.gray[3], md: theme.colors.gray[3]}}>
+                                <Group wrap="nowrap" onClick={open} mt={3} gap={2}>
+                                    <Text fz="md" style={{cursor: "pointer"}}
+                                          c={{base: theme.colors.gray[3], md: theme.colors.gray[3]}}>
                                         Edit your profile
                                     </Text>
-                                    <IconEdit size={12} />
+                                    <IconEdit cursor={"pointer"} size={12}/>
                                 </Group>
 
-                                <Modal opened={true} onClose={()=>{}}>
+                                <Modal opened={opened} centered onClose={close} style={{
+                                    marginBottom: "0px"
+                                }}>
                                     <EditUserDetailsModal/>
                                 </Modal>
                             </div>
