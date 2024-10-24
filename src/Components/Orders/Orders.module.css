@@ -1,0 +1,11 @@
+.nofileimage {
+    fill: red;
+}
+
+.overflow {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+
+}

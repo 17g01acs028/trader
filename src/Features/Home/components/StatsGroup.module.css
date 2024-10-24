@@ -1,0 +1,54 @@
+.root {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.title {
+    color: var(--mantine-color-white);
+    font-weight: 700;
+    font-size: var(--mantine-font-size-xs);
+}
+
+.count {
+    color: var(--mantine-color-white);
+    font-size: rem(32px);
+    line-height: 1;
+    font-weight: 700;
+    margin-bottom: var(--mantine-spacing-md);
+    font-family: Greycliff CF,
+    var(--mantine-font-family);
+}
+
+.description {
+    color: var(--mantine-color-blue-0);
+    font-size: var(--mantine-font-size-sm);
+    margin-top: rem(5px);
+}
+
+.stat {
+    flex: 1;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    & + & {
+        border-left: rem(1px) solid var(--mantine-color-white);
+    }
+
+    @mixin hover {
+        transform: scale(1.05);
+    }
+}
+.depositIcon{
+    color: var(--mantine-color-teal-3);
+}
+.withdrawIcon{
+    color: var(--mantine-color-red-7);
+}
+
+.statP{
+    background-color: var(--mantine-color-teal-6);
+}

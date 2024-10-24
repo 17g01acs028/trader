@@ -1,0 +1,48 @@
+.root {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+.count {
+    color: var(--mantine-color-white);
+    font-size: rem(32px);
+    line-height: 1;
+    font-weight: 700;
+    margin-bottom: var(--mantine-spacing-md);
+    font-family: Greycliff CF,
+    var(--mantine-font-family);
+}
+
+.icon {
+    background-color: light-dark(var(--mantine-color-yellow-5), var(--mantine-color-white));
+    padding: var(--mantine-spacing-xs);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+
+}
+
+.iconB {
+    border-left: rem(1px) solid light-dark(var(--mantine-color-green-5), var(--mantine-color-white));
+}
+
+.stat {
+    flex: 1;
+    display: flex;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--mantine-color-yellow-7);
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+
+    @mixin hover {
+        transform: scale(1.05);
+    }
+}

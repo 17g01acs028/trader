@@ -1,0 +1,96 @@
+body {
+    margin: 0;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+/* Grid layout */
+.portal-layout {
+    display: grid;
+    grid-template-areas:
+                "header header"
+                "sidebar main";
+    grid-template-columns: 70px 1fr;
+    grid-template-rows: 60px 1fr;
+    height: 100vh;
+}
+
+/* Header styling */
+.portal-header {
+    grid-area: header;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    padding: 0 20px;
+    border-bottom: rem(1px) solid light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-4));
+}
+
+/* Sidebar styling */
+.portal-sidebar {
+    grid-area: sidebar;
+    overflow: auto;
+}
+
+/* Main content styling */
+.portal-main {
+    grid-area: main;
+    background-color: #ffffff;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+    .portal-layout {
+        grid-template-areas:
+                    "header"
+                    "main"
+                    "sidebar";
+        grid-template-columns: 1fr;
+        grid-template-rows: 60px 1fr 60px;
+    }
+
+    .portal-sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        /*border-top: rem(1px) solid light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-4));*/
+        background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-5));
+        height: 60px;
+        z-index: 99;
+        display: flex;
+        align-items: center;
+        overflow: visible;
+        width: 100%;
+    }
+
+    .portal-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 99;
+        height: 60px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        /*border-bottom: rem(1px) solid light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-4));*/
+        background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-5));
+    }
+
+    .portal-layout {
+        height: calc(100vh);
+    }
+}
