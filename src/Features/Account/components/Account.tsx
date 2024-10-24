@@ -14,9 +14,9 @@ import {useNavigate} from "@tanstack/react-router";
 import {
     IconBrandTelegram, IconCheck,
     IconChevronRight, IconCopy,
-    IconEdit, IconId,
+    IconEdit, IconId, IconLock,
     IconMail,
-    IconMessageChatbot,
+    IconMessageChatbot, IconPassword,
     IconUser
 } from "@tabler/icons-react";
 import {SocialIcon} from "./SocialIcons.tsx";
@@ -43,6 +43,7 @@ export function Account() {
     ];
 
     const [opened, {open, close}] = useDisclosure(false);
+
     return (
         <Stack align={"center"}>
             <Stack p={10} className={classes.root} align={"stretch"} >
@@ -75,7 +76,7 @@ export function Account() {
                     <NavLink
                         label="Name"
                         leftSection={<IconUser size="1rem" stroke={1.5}/>}
-                        rightSection={<Group><label>{user?.name}</label><IconChevronRight/></Group>}
+                        rightSection={<Group><label>{user?.name}</label></Group>}
                     />
                     <NavLink
                         label="Email"
@@ -105,6 +106,16 @@ export function Account() {
                     <NavLink
                         label="Withdraw Address"
                         leftSection={<IconUser size="1rem" stroke={1.5}/>}
+                        rightSection={<Group><IconChevronRight/></Group>}
+                    />
+                    <NavLink
+                        label="Two-step verification"
+                        leftSection={<IconPassword size="1rem" stroke={1.5}/>}
+                        rightSection={<Group><IconChevronRight/></Group>}
+                    />
+                    <NavLink
+                        label="Change password"
+                        leftSection={<IconLock size="1rem" stroke={1.5}/>}
                         rightSection={<Group><IconChevronRight/></Group>}
                     />
                 </Card>

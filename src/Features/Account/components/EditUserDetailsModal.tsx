@@ -71,25 +71,36 @@ export function EditUserDetailsModal(props: EditUserDetailsModalProps) {
             <Stack>
                 <Group justify={"center"}>
                     <FileButton onChange={handleFileChange} accept="image/png,image/jpeg">
-                        {(props) => <Group gap={-30} align={"baseline"}><Avatar
+                        {(props) => <Group gap={-30} align={"end"}>
+
+
+                            <Avatar
                             name = {user?.name} src={imageUrl} size={100} {...props}></Avatar>
-                            <IconEdit {...props}/></Group>}
+
+                            <Tooltip
+                                label={"Change user Profile Photo"}
+                                position="top-end"
+                                withArrow
+                                transitionProps={{transition: 'pop-bottom-right'}}
+                            ><IconEdit {...props}/>
+                            </Tooltip>
+                        </Group>}
                     </FileButton>
                 </Group>
                 <TooltipInput styles={{
                     input: {borderColor: theme.colors.yellow[5]}
                 }} placeholder={"Enter first name"} {...form.getInputProps('firstName')}
-                              key={form.key('firstName')} labelTooltip="Edit User Details"/>
+                              key={form.key('firstName')} labelTooltip="Edit Your first name"/>
                 <TooltipInput styles={{
                     input: {borderColor: theme.colors.yellow[5]}
                 }}  {...form.getInputProps('middleName')}
                               key={form.key('middleName')} placeholder={"Enter last name"}
-                              labelTooltip="Edit User Details"/>
+                              labelTooltip="Edit Your Second Name"/>
                 <TooltipInput styles={{
                     input: {borderColor: theme.colors.yellow[5]}
                 }} {...form.getInputProps('surnameName')}
                               key={form.key('surnameName')} placeholder={"Enter surname"}
-                              labelTooltip="Edit User Details"/>
+                              labelTooltip="Edit Your Surname"/>
 
                 <Button variant={"outline"} type={"submit"} color={theme.colors.yellow[5]}>Save Changes</Button>
             </Stack>
@@ -109,7 +120,6 @@ export function TooltipInput(props: TooltipInputProps) {
             position="top-end"
             withArrow
             transitionProps={{transition: 'pop-bottom-right'}}
-            zIndex={99999}
         >
             <Box component="div" c="dimmed" style={{cursor: 'help'}}>
                 <Center>
