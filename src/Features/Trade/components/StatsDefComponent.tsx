@@ -3,13 +3,9 @@ import {
     Text,
     SimpleGrid,
     UnstyledButton,
-    useMantineTheme, Group, Stack, NavLink,
+    useMantineTheme, Group, Stack,
 } from '@mantine/core';
-import {
-    IconCreditCard,
-    IconBuildingBank,
-    IconRepeat,
-    IconReceiptRefund, IconCurrencyRupee, IconAntennaBars5, IconCoins, IconLoader3,
+import { IconCoins, IconLoader3,
 } from '@tabler/icons-react';
 import classes from './Trade.module.css';
 

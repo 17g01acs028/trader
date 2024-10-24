@@ -12,7 +12,6 @@ import {
     Tooltip, useMantineTheme
 } from "@mantine/core";
 import {IconInfoCircle} from "@tabler/icons-react";
-import {TooltipProps} from "recharts";
 import {useAuth} from "../../Authentication/Components/AuthContext.tsx";
 
 interface EditUserDetailsModalProps {

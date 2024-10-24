@@ -1,7 +1,6 @@
 import {createLazyFileRoute} from '@tanstack/react-router'
-import {StatsRingCard} from "../../Components/StatsRingCard/StatsRingCard.tsx";
 import {UserInfor} from "../../Features/Home/components/UserInfor.tsx";
-import {Grid, Group, Stack} from "@mantine/core";
+import {Grid,Stack} from "@mantine/core";
 import {TransactionInfor} from "../../Features/Home/components/TransactionInfor.tsx";
 import {ActionsGrid} from "../../Features/Home/components/ActionsGrid.tsx";
 import {StatementGrid} from "../../Features/Home/components/StatementGrid.tsx";

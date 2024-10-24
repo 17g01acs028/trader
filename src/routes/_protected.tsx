@@ -1,4 +1,4 @@
-import {createFileRoute, Outlet, useNavigate} from '@tanstack/react-router'
+import {createFileRoute, Outlet} from '@tanstack/react-router'
 import {NavbarMinimal} from "../Features/NavBar/components/NavBar.tsx";
 import AuthenticatedComponent from "../Features/Authentication/Components/AuthedicatedContext.tsx";
 import {Header} from "../Features/Header/components/Header.tsx";

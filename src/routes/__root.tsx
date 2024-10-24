@@ -1,5 +1,4 @@
 import {createRootRoute, Outlet, redirect} from "@tanstack/react-router";
-import {TanStackRouterDevtools} from "@tanstack/router-devtools";
 import '@mantine/core/styles.css';
 import {MantineProvider} from '@mantine/core';
 import {Notifications} from "@mantine/notifications";
@@ -18,7 +17,6 @@ export const Route = createRootRoute({
                         <Outlet/>
                 </AuthProvider>
             </QueryClientProvider>
-            {/*<TanStackRouterDevtools />*/}
         </MantineProvider>
     ),
     beforeLoad: async ({location}) => {

@@ -1,5 +1,5 @@
 import classes from './SocialIcons.module.css';
-import {Box, Group, Paper} from "@mantine/core";
+import {Box, Group} from "@mantine/core";
 
 interface Props {
     data: stat[],

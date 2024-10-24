@@ -1,10 +1,9 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
+import  {createContext, useContext, useEffect, useState} from 'react';
 import {useQuery, useQueryClient} from "@tanstack/react-query";
 import {account} from "../../../lib/appwrite.ts";
 import {Box, LoadingOverlay} from "@mantine/core";
 import {authenticationQueryKeys, Logout} from "../data-access/authedication.ts";
 import {useMantineNotification} from "../../../Components/Notification/useMantineNotification.tsx";
-import {useNavigate} from "@tanstack/react-router";
 
 // AuthContext to store the user globally
 const AuthContext = createContext<{

@@ -1,23 +1,9 @@
 import {
     Card,
     Text,
-    SimpleGrid,
-    UnstyledButton,
     Anchor,
-    Group,
-    useMantineTheme, Accordion, ThemeIcon,
+    Group, Accordion, ThemeIcon,
 } from '@mantine/core';
-import {
-    IconCreditCard,
-    IconBuildingBank,
-    IconRepeat,
-    IconReceiptRefund,
-    IconReceipt,
-    IconReceiptTax,
-    IconReport,
-    IconCashBanknote,
-    IconCoin, IconTransitionBottom,
-} from '@tabler/icons-react';
 import classes from './ActionsGrid.module.css';
 import {IconArrowUpRight, IconArrowDownRight} from '@tabler/icons-react';
 

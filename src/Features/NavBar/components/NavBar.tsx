@@ -1,17 +1,11 @@
-import {
-    IconCalendarStats, IconChartArrowsVertical, IconClipboardList,
-    IconDeviceDesktopAnalytics, IconDeviceWatchStats, IconFile,
-    IconFingerprint,
-    IconGauge,
-    IconHome2, IconLogout, IconMenuOrder, IconPointerDollar, IconSettings, IconSwitchHorizontal,
-    IconUser
+import { IconChartArrowsVertical, IconClipboardList,
+    IconHome2, IconLogout, IconPointerDollar,IconUser
 } from "@tabler/icons-react";
 import {Center, em, Group, rem, Stack, Tooltip, UnstyledButton} from "@mantine/core";
 
 import classes from "./NavBarMinimal.module.css"
 import {useState} from "react";
 import {useMediaQuery} from "@mantine/hooks";
-import {isFixed} from "@mantine/hooks/lib/use-headroom/use-headroom";
 import {useNavigate} from "@tanstack/react-router";
 import {Logout} from "../../Authentication/data-access/authedication.ts";
 import {useMantineNotification} from "../../../Components/Notification/useMantineNotification.tsx";
