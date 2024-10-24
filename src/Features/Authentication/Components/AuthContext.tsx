@@ -1,9 +1,7 @@
 import  {createContext, useContext, useEffect, useState} from 'react';
-import {useQuery, useQueryClient} from "@tanstack/react-query";
-import { account } from "../../../lib/appwrite.ts";
+import { useQueryClient} from "@tanstack/react-query";
 import {
-  authenticationQueryKeys,
-  getAccount,
+  authenticationQueryKeys, GetAccount,
   Logout,
 } from "../data-access/authedication.ts";
 import { useMantineNotification } from "../../../Components/Notification/useMantineNotification.tsx";
@@ -34,17 +32,9 @@ const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const queryClient = useQueryClient();
   const useLogout = Logout();
-  const getUserAccount = getAccount();
   const useClient = useQueryClient();
-  const fetchUser = async () => {
-    const response = await account.get();
-    if (!response?.status) {
-      throw new Error("Failed to fetch user");
-    }
-    return response;
-  };
 
-  const { data, error, isLoading, isSuccess } = getAccount();
+  const { data, error, isLoading, isSuccess } = GetAccount();
 
   useEffect(() => {
     if (isSuccess && data) {

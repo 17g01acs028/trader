@@ -20,7 +20,8 @@ const AuthenticatedComponent = ({children}: { children: React.ReactNode }) => {
         navigate({ to: "/auth" });
       }
     }
-  }, [user, navigate, isLoading, isSuccess, data]);
+  }, [user, navigate, isLoading, isSuccess, data,error]);
+
 
   // If authenticated, render the children components
   return <>{children}</>;

@@ -78,3 +78,12 @@ export function Logout(){
         }
     })
 }
+
+export function GetAccount(){
+    return useQuery({
+        queryKey: authenticationQueryKeys?.logIn(),
+        queryFn: async () => {
+            return await account.get()
+        }
+    })
+}
