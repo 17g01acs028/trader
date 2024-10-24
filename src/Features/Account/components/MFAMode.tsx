@@ -3,7 +3,6 @@ import {QRCodeSVG} from 'qrcode.react';
 import {
     ActionIcon,
     Card,
-    Center,
     CopyButton,
     Group,
     rem,
@@ -14,32 +13,21 @@ import {
 import {
     IconCheck,
     IconCopy,
-    IconGasStation,
-    IconGauge,
-    IconKeyboard,
-    IconManualGearbox,
-    IconUsers
+    IconKeyboard
 } from "@tabler/icons-react";
-import classes from "./MFAMode.module.css"
 
-const mockdata = [
-    {label: '4 passengers', icon: IconUsers},
-    {label: '100 km/h in 4 seconds', icon: IconGauge},
-    {label: 'Automatic gearbox', icon: IconManualGearbox},
-    {label: 'Electric', icon: IconGasStation},
-];
-
-const features = mockdata.map((feature) => (
-    <Center key={feature.label}>
-        <feature.icon size="1.05rem" className={classes.icon} stroke={1.5}/>
-        <Text size="xs">{feature.label}</Text>
-    </Center>
-));
 
 const MFASetup = () => {
     const [secret, setSecret] = useState(`QDWSM3OYBPGTEVSPB5FKVDM3CSNCWHVK`);
     const [qrCodeUrl, setQrCodeUrl] = useState(`otpauth://totp/wallet:stevemutioo123@gmail.com?secret=${secret}&issuer=wallet`);
     const theme = useMantineTheme()
+
+    function setter() {
+        setSecret(`QDWSM3OYBPGTEVSPB5FKVDM3CSNCWHVK`)
+        setQrCodeUrl(`otpauth://totp/wallet:stevemutioo123@gmail.com?secret=${secret}&issuer=wallet`)
+    }
+
+    setter()
 
     return (
         <Stack p={10} gap={5}>
@@ -79,7 +67,8 @@ const MFASetup = () => {
                                     bg={theme.colors.blue[6]} p={5} radius={"md"}><IconKeyboard color={"white"}/></Card>
                                 </Group>
                                 <Group gap={5} align={"center"}>
-                                    Enter : <Card withBorder p={5} radius={"md"}> <Text>Code name(Enter name eg: Wallet)</Text></Card>
+                                    Enter : <Card withBorder p={5} radius={"md"}> <Text>Code name(Enter name eg:
+                                    Wallet)</Text></Card>
                                 </Group>
                                 <Group gap={5} align={"center"}>
                                     Enter : <Card withBorder p={5} radius={"md"}> <Text>Your key(copy the key
@@ -88,7 +77,7 @@ const MFASetup = () => {
                                 <Group gap={5} align={"center"}>
                                     Select : <Card withBorder p={5} radius={"md"}> <Text>Time base</Text></Card>
                                 </Group>
-                                <Card withBorder radius={"md"} mb={{base:20,md:0}}>
+                                <Card withBorder radius={"md"} mb={{base: 20, md: 0}}>
                                     <Group gap={5}>
                                         <Text>Key: </Text>
                                         <Text fz={12}>{secret}</Text>

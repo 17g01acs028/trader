@@ -21,11 +21,10 @@ interface EditUserDetailsModalProps {
 }
 
 
-
 export function EditUserDetailsModal(props: EditUserDetailsModalProps) {
     const theme = useMantineTheme()
     const user = useAuth()
-
+    console.log(user, props)
     return (
         <Stack>
             <Group justify={"center"}>

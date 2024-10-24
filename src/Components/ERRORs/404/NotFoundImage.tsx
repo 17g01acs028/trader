@@ -16,7 +16,7 @@ export function NotFoundImage() {
                         page has been moved to another URL. If you think this is an error contact support.
                     </Text>
                     <Button variant="outline" onClick={()=>{
-                        navigate({to:"/"})
+                        navigate({to:"/home"})
                     }} size="md" mt="xl" className={classes.control}>
                         Get back to home page
                     </Button>
