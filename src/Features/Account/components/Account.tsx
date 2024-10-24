@@ -23,6 +23,7 @@ import {SocialIcon} from "./SocialIcons.tsx";
 import classes from "./Account.module.css"
 import {useAuth} from "../../Authentication/Components/AuthContext.tsx";
 import {EditUserDetailsModal} from "./EditUserDetailsModal.tsx";
+import {useDisclosure} from "@mantine/hooks";
 
 export function Account() {
     const theme = useMantineTheme()
