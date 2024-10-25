@@ -4,34 +4,36 @@ import {useEffect, useState} from "react";
 
 
 interface ConfirmPasswordInputProps extends PasswordInputProps {
-    form: any
-    value: string
-    passwordKey: string
+    value?: string
+    passwordValue: string
+    setIsMatching: (match: boolean) => void
 }
 
-export function ConfirmPasswordInput(props: ConfirmPasswordInputProps) {
+export function ConfirmPasswordInput({value, passwordValue, setIsMatching, ...props}: ConfirmPasswordInputProps) {
 
     const [match, setMatch] = useState(false);
 
-    const rightSection = (
+    useEffect(() => {
+        setIsMatching(match)
+    }, [setIsMatching,match]);
+
+    const leftSection = (
         <Box component="div" c="dimmed" style={{cursor: 'help'}}>
             <Center>
-                {match ? (<IconX style={{width: rem(18), height: rem(18)}} stroke={1.5}/>
+                {!match ? (<IconX style={{width: rem(18), height: rem(18)}} stroke={1.5}/>
                 ) : (<IconCircleCheck style={{width: rem(18), height: rem(18)}} stroke={1.5}/>
                 )}
             </Center>
         </Box>
     );
 
-    const key = props?.passwordKey;
     useEffect(() => {
-        console.log("Password Key value",props?.form?.getValue(key) )
-        if (props?.form?.getValues(props?.passwordKey) === props?.value) {
+        if (passwordValue === value) {
             setMatch(true);
         } else {
-            setMatch(true);
+            setMatch(false);
         }
-    }, [ props?.form]);
+    }, [passwordValue,value]);
 
-    return <PasswordInput {...props} rightSection={rightSection}/>
+    return <PasswordInput {...props} leftSection={leftSection}/>
 }

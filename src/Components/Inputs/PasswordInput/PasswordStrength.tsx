@@ -33,14 +33,19 @@ function getStrength(password: string) {
 }
 
 interface PasswordStrengthProps extends PasswordInputProps {
-    value: string
-    form: any
+    value?: string
+    onStrengthChange: (strength: number) => void;
 }
 
-export function PasswordStrength(props: PasswordStrengthProps) {
-    const strength = getStrength(props?.value);
+export function PasswordStrength({value,onStrengthChange,...props}: PasswordStrengthProps) {
+    const strength = getStrength(value || "");
+
+    useEffect(() => {
+        onStrengthChange(strength);
+    }, [strength, onStrengthChange]);
+
     const checks = requirements.map((requirement, index) => (
-        <PasswordRequirement key={index} label={requirement.label} meets={requirement.re.test(props?.value)}/>
+        <PasswordRequirement key={index} label={requirement.label} meets={requirement.re.test(value || "")}/>
     ));
     const bars = Array(4)
         .fill(0)
@@ -48,21 +53,13 @@ export function PasswordStrength(props: PasswordStrengthProps) {
             <Progress
                 styles={{section: {transitionDuration: '0ms'}}}
                 value={
-                    props?.value.length > 0 && index === 0 ? 100 : strength >= ((index + 1) / 4) * 100 ? 100 : 0
+                    value && value?.length > 0 && index === 0 ? 100 : strength >= ((index + 1) / 4) * 100 ? 100 : 0
                 }
                 color={strength > 80 ? 'teal' : strength > 50 ? 'yellow' : 'red'}
                 key={index}
                 size={4}
             />
         ));
-
-    useEffect(() => {
-        if (strength < 100 || props?.value?.length < 8) {
-            props?.form?.setFieldError('newPassword','Password is too weak');
-        } else {
-            props?.form?.clearFieldError('newPassword');
-        }
-    }, [strength, props?.form]);
 
     return (
         <div>
@@ -72,7 +69,7 @@ export function PasswordStrength(props: PasswordStrengthProps) {
                 {bars}
             </Group>
 
-            <PasswordRequirement label="Has at least 8 characters" meets={props?.value.length >= 8}/>
+            <PasswordRequirement label="Has at least 8 characters" meets={value && value.length >= 8 || false}/>
             {checks}
         </div>
     );

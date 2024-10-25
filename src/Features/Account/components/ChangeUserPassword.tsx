@@ -4,7 +4,7 @@ import {
     Button,
     Center, em,
     FileButton,
-    Group,
+    Group, PasswordInput,
     rem,
     Stack,
     TextInput,
@@ -30,11 +30,13 @@ interface CahngeUserPasswordModalProps {
 const ChangeUserPassword = z.object({
     previousPassword: z.string().min(2, {message: 'Old Password Required'}),
     confirmPassword: z.string().min(2, {message: 'New password Required'}),
-    newPassword: z.string().min(2, {message: 'New password Required'}),
+    newPassword: z.string().min(2, {message: 'Confirm password Required'}),
 });
 
 export function ChangeUserPasswordModal(props: CahngeUserPasswordModalProps) {
     const theme = useMantineTheme()
+    const [strength, setStrength] = useState<number>(0);
+    const [match, setMatch] = useState(false)
     const form = useForm({
         mode: 'controlled',
         initialValues: {
@@ -45,12 +47,21 @@ export function ChangeUserPasswordModal(props: CahngeUserPasswordModalProps) {
         validate: zodResolver(ChangeUserPassword)
     });
     const isMobile = useMediaQuery(`(max-width: ${em(500)})`);
+
     function handleSubmit(data: any) {
         const formData = new FormData()
         formData.append('request_body', JSON.stringify(data));
-        formData.append('file', avatarFile);
-        console.log("data is :", formData)
+        // formData.append('file', avatarFile);
+        if (strength < 100) {
+            form.setFieldError("newPassword", "Password does not meat all requirements")
+        }
+
+        if (!match) {
+            form.setFieldError("confirmPassword", "Password do not match")
+        }
+
     }
+
 
     function handleInValidSubmit(error: any) {
         console.log("Error is :", JSON.stringify(error))
@@ -59,21 +70,37 @@ export function ChangeUserPasswordModal(props: CahngeUserPasswordModalProps) {
     return (
         <form onSubmit={form.onSubmit(handleSubmit, handleInValidSubmit)}>
             <Stack>
-                <Group justify={isMobile ? "center" : "end"} align={"center"}>{isMobile ? (<IconGripHorizontal onClick={props?.onClose} color={theme.colors.gray[6]}/>) : (<IconX onClick={props?.onClose} color={theme.colors.gray[6]}/>)}</Group>
-                <TooltipInput styles={{
-                    input: {borderColor: theme.colors.yellow[5]}
-                }} placeholder={"Enter first name"} {...form.getInputProps('previousPassword')}
-                              key={form.key('previousPassword')} labelTooltip="Old password"/>
-                <PasswordStrength form={form}  styles={{
-                    input: {borderColor: theme.colors.yellow[5]}
-                }}  {...form.getInputProps('newPassword')}
-                              key={form.key('newPassword')} placeholder={"Enter New password"}
-                              />
-                <ConfirmPasswordInput passwordKey={"newPassword"} form={form} styles={{
-                    input: {borderColor: theme.colors.yellow[5]}
-                }} {...form.getInputProps('confirmPassword')}
-                              key={form.key('confirmPassword')} placeholder={"Confirm password"}
-                              />
+                <Group justify={isMobile ? "center" : "end"} align={"center"}>{isMobile ? (
+                    <IconGripHorizontal onClick={props?.onClose} color={theme.colors.gray[6]}/>) : (
+                    <IconX onClick={props?.onClose} color={theme.colors.gray[6]}/>)}
+                </Group>
+                <PasswordInput
+                    styles={{
+                        input: {borderColor: theme.colors.yellow[5]}
+                    }}
+                    placeholder={"Enter Previous Password"}
+                    {...form.getInputProps('previousPassword')}
+                    key={form.key('previousPassword')}
+                />
+                <PasswordStrength
+                    onStrengthChange={(v) => setStrength(v)}
+                    styles={{
+                        input: {borderColor: theme.colors.yellow[5]}
+                    }}
+                    {...form.getInputProps('newPassword')}
+                    key={form.key('newPassword')}
+                    placeholder={"Enter New password"}
+                />
+                <ConfirmPasswordInput
+                    setIsMatching={(v) => setMatch(v)}
+                    passwordValue={form.getValues().newPassword}
+                    styles={{
+                        input: {borderColor: theme.colors.yellow[5]}
+                    }}
+                    {...form.getInputProps('confirmPassword')}
+                    key={form.key('confirmPassword')}
+                    placeholder={"Confirm password"}
+                />
 
                 <Button variant={"outline"} type={"submit"} color={theme.colors.yellow[5]}>Save Changes</Button>
             </Stack>
